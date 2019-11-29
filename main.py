@@ -81,7 +81,8 @@ def final_english_search_engine():
             term_alternative = query_corrector.final_candidate(term, bigram_index)
             if (term_alternative[0][1] != 0):
                 change_flag = 1
-                new_query += term_alternative[0][0] + " "
+            new_query += term_alternative[0][0] + " "
+
         if (change_flag == 1):
             print("did you mean : " + new_query)
             print()
