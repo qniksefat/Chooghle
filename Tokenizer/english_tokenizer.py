@@ -39,7 +39,7 @@ def read_from_file():
                 })
                 # print(f'\t{row[0]} \n{row[1]}')
                 line_count += 1
-        # print(f'Processed {line_count} lines.')
+        print(f'Processed {line_count} lines of csv data.')
         return data
 
 
