@@ -2,6 +2,7 @@ def sample_docs():
     documents = []
     documents.append( {"id" : 1 , "title" : "hello", "content" : ["this", "is", "sample", "text", "is"]} )
     documents.append( {"id" : 2 , "title" : "again", "content" : ["hello", "my", "name", "is", "milad"]} )
+    documents.append({"id": 3 , "title": "again", "content": ["asghar", "pesare", "khoob"]})
     return documents
 
 def create_documents_dict (documents):
@@ -38,7 +39,7 @@ def remove_document_from_index(document : dict, index : dict):
 def add_document_to_index(document : dict, index : dict) :
     return None
 
-def get_posting_lis(index: dict, term):
+def get_posting_list(index: dict, term):
     if term in index:
         return index[term]
     else:
@@ -46,7 +47,7 @@ def get_posting_lis(index: dict, term):
 
 def show_search_result (documents : dict, term, field):
     index = positional_indexer(documents,field)
-    posting_list : dict = get_posting_lis(index,term)
+    posting_list : dict = get_posting_list(index,term)
     if posting_list is None:
         print("term is not find in documents")
     else:
@@ -61,6 +62,15 @@ def show_search_result (documents : dict, term, field):
             positions_text = positions_text[0:-2]
             print ("\"" + str(term) + "\" found in document " + str(doc_id) + " in this positions: " + positions_text)
 
+def search_for_term(term, index):
+    posting_list : dict = get_posting_list(index,term)
+    result = []
+    if (posting_list == None) :
+        return result
+    for docid in posting_list.keys():
+        result.append(docid)
+    return result
 
-documents = create_documents_dict(sample_docs())
-show_search_result(documents,input(),"content")
+
+# documents = create_documents_dict(sample_docs())
+# show_search_result(documents,input(),"content")
