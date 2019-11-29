@@ -60,11 +60,18 @@ def get_raw_data():
                     "content": row[1]
                 })
                 line_count += 1
+        print(f'And processed {line_count} lines of raw data.')
         return data
 
 
 def english_tokenize(sentence):
-    sentence = "".join([w for w in sentence if w not in punctuations])
+    s = ""
+    for w in sentence:
+        if w not in punctuations:
+            s += w
+        else:
+            s += " "
+    sentence = s
     word_tokenized = word_tokenize(sentence)
     lemmatized = [wnl.lemmatize(word) for word in word_tokenized]
     stemmed = [st.stem(word) for word in lemmatized]
