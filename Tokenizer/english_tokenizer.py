@@ -62,11 +62,6 @@ def get_raw_data():
                 line_count += 1
         return data
 
-def get_value_by_id(id, key):
-    id = id - 1
-    raw_datum = dataSet.raw_data[id]
-    return raw_datum.get(key)
-
 
 def english_tokenize(sentence):
     sentence = "".join([w for w in sentence if w not in punctuations])
@@ -79,3 +74,11 @@ def english_tokenize(sentence):
 class DataSet:
     data = read_from_file()
     raw_data = get_raw_data()
+
+    def get_value_by_id(self, index, key):
+        index = index - 1
+        raw_datum = self.raw_data[index]
+        return raw_datum.get(key)
+
+
+dataSet = DataSet()
