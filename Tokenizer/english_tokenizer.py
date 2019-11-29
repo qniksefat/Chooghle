@@ -19,11 +19,6 @@ st = LancasterStemmer()
 wnl = WordNetLemmatizer()
 
 
-class DataSet:
-    data = read_from_file()
-    raw_data = get_raw_data()
-
-
 def read_from_file():
     address_of_file = os.path.dirname(__file__) + str('/../Data/English.csv')
     with open(address_of_file) as english_raw_dataset:
@@ -81,4 +76,6 @@ def english_tokenize(sentence):
     return stemmed
 
 
-dataSet = DataSet()
+class DataSet:
+    data = read_from_file()
+    raw_data = get_raw_data()
