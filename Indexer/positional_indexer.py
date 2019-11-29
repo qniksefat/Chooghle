@@ -1,12 +1,5 @@
 import pickle
 
-def sample_docs():
-    documents = []
-    documents.append( {"id" : 1 , "title" : "hello", "content" : ["this", "is", "sample", "text", "is"]} )
-    documents.append( {"id" : 2 , "title" : "again", "content" : ["hello", "my", "name", "is", "milad"]} )
-    documents.append({"id": 3 , "title": "again", "content": ["asghar", "pesare", "khoob"]})
-    return documents
-
 def create_documents_dict (documents):
     result = {}
     for document in documents:
@@ -35,11 +28,17 @@ def positional_indexer(documents : dict, field):
                 posting_list[this_doc_id].append(position+1)
     return index
 
-def remove_document_from_index(document : dict, index : dict):
-    return None
+def remove_document_from_index(id, index : dict):
+    if ( id not in index.keys()):
+        return index
+    index.pop(index[id])
+    return index
 
 def add_document_to_index(document : dict, index : dict) :
-    return None
+    if (document["id"] in index):
+        return index
+    index[document["id"]] = document
+    return index
 
 def get_posting_list(index: dict, term):
     if term in index:
@@ -47,8 +46,7 @@ def get_posting_list(index: dict, term):
     else:
         return None
 
-def show_search_result (documents : dict, term, field):
-    index = positional_indexer(documents,field)
+def show_search_result (index : dict, term):
     posting_list : dict = get_posting_list(index,term)
     if posting_list is None:
         print("term is not find in documents")
@@ -83,5 +81,3 @@ def load_index(name):
     index = pickle.load(file)
     file.close()
     return index
-# documents = create_documents_dict(sample_docs())
-# show_search_result(documents,input(),"content")
