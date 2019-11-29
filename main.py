@@ -50,6 +50,6 @@ def phase_4_query_corrector():
 
 # phase_2_positional_index_output()
 
-# phase_2_bigram_index_output()
+phase_2_bigram_index_output()
 
-phase_4_query_corrector()
+# phase_4_query_corrector()

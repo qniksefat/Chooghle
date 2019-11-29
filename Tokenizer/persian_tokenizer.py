@@ -6,13 +6,13 @@ import os
 from xml.dom import minidom
 
 address_of_file = os.path.dirname(__file__) + str('/../Data/small_part.xml')
-mydoc = minidom.parse(address_of_file)
+# mydoc = minidom.parse(address_of_file)
 
-pages = mydoc.getElementsByTagName('page')
+# pages = mydoc.getElementsByTagName('page')
 # # one specific item attribute
-print("pages 0")
-print(pages[0]['title'])
-print(pages[0].attributes['title'].value)
+# print("pages 0")
+# print(pages[0]['title'])
+# print(pages[0].attributes['title'].value)
 #
 # # all item attributes
 # print('\nAll attributes:')
