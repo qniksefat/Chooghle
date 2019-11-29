@@ -9,9 +9,6 @@ import os
 import csv
 from nltk.stem import WordNetLemmatizer
 
-from Tokenizer import foo_func
-foo_func.foo()
-
 st = LancasterStemmer()
 wnl = WordNetLemmatizer()
 
