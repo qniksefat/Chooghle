@@ -18,6 +18,7 @@ punctuations = "\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]"
 st = LancasterStemmer()
 wnl = WordNetLemmatizer()
 
+
 def read_from_file():
     address_of_file = os.path.dirname(__file__) + str('/../Data/English.csv')
     with open(address_of_file) as english_raw_dataset:
@@ -61,12 +62,6 @@ def get_raw_data():
                 line_count += 1
         return data
 
-
-class DataSet:
-    data = read_from_file()
-    raw_data = get_raw_data()
-
-
 def get_value_by_id(id, key):
     id = id - 1
     raw_datum = dataSet.raw_data[id]
@@ -81,4 +76,6 @@ def english_tokenize(sentence):
     return stemmed
 
 
-dataSet = DataSet()
+class DataSet:
+    data = read_from_file()
+    raw_data = get_raw_data()
