@@ -1,3 +1,5 @@
+import pickle
+
 def sample_docs():
     documents = []
     documents.append( {"id" : 1 , "title" : "hello", "content" : ["this", "is", "sample", "text", "is"]} )
@@ -71,6 +73,15 @@ def search_for_term(term, index):
         result.append(docid)
     return result
 
+def write_index_on_file(index,name):
+    file = open("Data\\" + name + ".pkl", "wb")
+    pickle.dump(index, file)
+    file.close()
 
+def load_index(name):
+    file = open("Data\\" + name + ".pkl", "rb")
+    index = pickle.load(file)
+    file.close()
+    return index
 # documents = create_documents_dict(sample_docs())
 # show_search_result(documents,input(),"content")
