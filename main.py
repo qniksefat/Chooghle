@@ -19,8 +19,10 @@ def tf_idf_english():
     raw_query = input()
     query = english_tokenizer.english_tokenize(raw_query)
     result = tfidf.search_for_query(query,documents,dictionary)
+    res_str = ""
+    res_str
     print(result)
 
-
 #create_positional_index_for_english()
-tf_idf_english()
+print(english_tokenizer.get_value_by_id(18, 'content'))
+# tf_idf_english()
