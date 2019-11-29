@@ -29,7 +29,7 @@ def read_from_file():
             if line_count == 0:
                 # print(f'Column names are {", ".join(row)} \n\n')
                 line_count += 1
-            elif line_count < 3:
+            else:
                 # "else" to process whole file
                 data.append(
                 {

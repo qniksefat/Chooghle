@@ -15,7 +15,7 @@ def compute_tfidf_for_document (term, document: dict, dictionary: dict, document
     tf_idf = tf * idf
     return tf_idf
 
-def compute_tfidf_for_query (term, query: list, dictionary: dict, document_size):
+def compute_tfidf_for_query (term, query: list, dictionary: dict, documents_size):
     if term not in dictionary.keys():
         return 0
     posting_list: dict = dictionary[term]
@@ -52,7 +52,7 @@ def search_for_query (query, documents : dict, dictionary : dict):
     documents_size = len(documents.keys())
     candidate_documents = []
     for term in query:
-        this_docs = search_for_term(term,index)
+        this_docs = search_for_term(term,dictionary)
         for docId in this_docs:
             if (docId not in candidate_documents):
                 candidate_documents.append(docId)
@@ -65,12 +65,13 @@ def search_for_query (query, documents : dict, dictionary : dict):
     return sorted_documents
 
 
-documents = create_documents_dict(sample_docs())
-documents_size = len(documents.keys())
 
-index = positional_indexer(documents, "content")
-
-sample_query =[ "is"]
-
-res = search_for_query(sample_query,documents,index)
-print(res)
+# documents = create_documents_dict(sample_docs())
+# documents_size = len(documents.keys())
+#
+# index = positional_indexer(documents, "content")
+#
+# sample_query =[ "is"]
+#
+# res = search_for_query(sample_query,documents,index)
+# print(res)

@@ -47,9 +47,9 @@ def add_doc():
     pass
 
 
-data = read_from_file()
-data = persian_tokenize(data)
-print(
-    data[0], '\n',
-    data[1]
-)
+# data = read_from_file()
+# data = persian_tokenize(data)
+# print(
+#     data[0], '\n',
+#     data[1]
+# )
