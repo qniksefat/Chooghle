@@ -1,5 +1,5 @@
 from Tokenizer import english_tokenizer, persian_tokenizer
-from Indexer import positional_indexer
+from Indexer import positional_indexer, bigram_indexer
 from search_engine import tfidf
 
 
@@ -26,6 +26,20 @@ def tf_idf_english():
         print()
         print()
 
+def phase_2_positional_index_output():
+    dictionary = load_english_dict()
+    query = input()
+    positional_indexer.show_search_result(dictionary,query)
+
+def phase_2_bigram_index_output():
+    dictionary = load_english_dict()
+    res = bigram_indexer.bigram_indexer(dictionary)
+    print(res)
+
 #create_positional_index_for_english()
 
-tf_idf_english()
+# tf_idf_english()
+
+# phase_2_positional_index_output()
+
+# phase_2_bigram_index_output()
