@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-import nltk
+# import nltk
+# nltk.download('stopwords')
 # nltk.download('punkt')
 # nltk.download('wordnet')
 # if there was any problem with NLTK, uncomment the line above
@@ -8,6 +9,11 @@ from nltk.stem.lancaster import LancasterStemmer
 import os
 import csv
 from nltk.stem import WordNetLemmatizer
+from string import punctuation
+
+# from nltk.corpus import stopwords
+# sw = set(stopwords.words('english'))
+# print(sw)
 
 st = LancasterStemmer()
 wnl = WordNetLemmatizer()
@@ -28,35 +34,22 @@ def read_from_file():
                 data.append(
                 {
                     "id": line_count,
-                    "title": row[0],
-                    "content": row[1]
+                    "title": english_tokenize(row[0]),
+                    "content": english_tokenize(row[1])
                 })
                 # print(f'\t{row[0]} \n{row[1]}')
                 line_count += 1
-        print(f'Processed {line_count} lines.')
+        # print(f'Processed {line_count} lines.')
         return data
 
 
-def english_tokenize(data):
-    for datum in data:
-        word_tokenized = word_tokenize((datum['content']))
-        lemmatized = [wnl.lemmatize(word) for word in word_tokenized]
-        stemmed = [st.stem(word) for word in lemmatized]
-        datum['content'] = stemmed
-        word_tokenized = word_tokenize((datum['title']))
-        lemmatized = [wnl.lemmatize(word) for word in word_tokenized]
-        stemmed = [st.stem(word) for word in lemmatized]
-        datum['title'] = stemmed
-    return data
+def english_tokenize(sentence):
+    sentence = "".join([w for w in sentence if w not in punctuation])
+    word_tokenized = word_tokenize(sentence)
+    lemmatized = [wnl.lemmatize(word) for word in word_tokenized]
+    stemmed = [st.stem(word) for word in lemmatized]
+    return stemmed
 
 
 def add_doc():
     pass
-
-
-data = read_from_file()
-data = english_tokenize(data)
-print(
-    data[0], '\n',
-    data[1]
-)
