@@ -1,19 +1,18 @@
-from __future__ import unicode_literals
 # import nltk
 # nltk.download('stopwords')
 # nltk.download('punkt')
 # nltk.download('wordnet')
 # if there was any problem with NLTK, uncomment the line above
+from __future__ import unicode_literals
 from nltk import word_tokenize
 from nltk.stem.lancaster import LancasterStemmer
+from nltk.stem import WordNetLemmatizer
 import os
 import csv
-from nltk.stem import WordNetLemmatizer
 
 # from nltk.corpus import stopwords
 # sw = set(stopwords.words('english'))
 # print(sw)
-
 punctuations = "\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]"
 st = LancasterStemmer()
 wnl = WordNetLemmatizer()
