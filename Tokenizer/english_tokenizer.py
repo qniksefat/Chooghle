@@ -102,10 +102,12 @@ def english_tokenize(sentence):
 def english_tokenize_not_stemmed(sentence):
     s = ""
     for w in sentence:
-        if w not in punctuations:
-            s += w
-        else:
+        if w  in punctuations:
             s += " "
+        elif w.isupper() :
+            s += w.lower()
+        else :
+            s += w
     sentence = s
     word_tokenized = word_tokenize(sentence)
     lemmatized = [wnl.lemmatize(word) for word in word_tokenized]
