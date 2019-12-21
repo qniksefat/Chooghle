@@ -1,9 +1,14 @@
 from __future__ import unicode_literals
-from hazm import *
+# from hazm import *
 import os
 
-
 from xml.dom import minidom
+
+# from Tokenizer import english_tokenizer
+from nltk.stem.lancaster import LancasterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk import word_tokenize
+
 
 address_of_file = os.path.dirname(__file__) + str('/../Data/small_part.xml')
 # mydoc = minidom.parse(address_of_file)
@@ -95,7 +100,6 @@ class DataSet:
     #     index = index - 1
     #     raw_datum = self.raw_data[index]
     #     return raw_datum.get(key)
-
 
 # dataSet = DataSet()
 
