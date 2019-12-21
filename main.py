@@ -90,7 +90,7 @@ def final_english_search_engine():
     while (raw_query != "exit"):
         query_terms = raw_query.split(" ")
         change_flag = 0
-        new_query = ""
+        new_query: str = ""
         for term in query_terms:
             term_alternative = query_corrector.final_candidate(term, bigram_index)
             if (term_alternative[0][1] != 0):
