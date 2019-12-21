@@ -41,11 +41,11 @@ def analyser(sentence, stem=True):
 
 
 class DataSet:
-    def __init__(self):
+    def __init__(self, address_of_file, has_tag=False):
         # list of dictionaries:
-        self.read_from_file()
+        self.read_from_file(address_of_file, has_tag)
         # gives self.raw_data
-        self.data = self.get_data()
+        self.data = self.get_data(has_tag)
         self.not_stemmed_data = self.get_data(stem=False)
 
     # not_stemmed_data = get_not_stemmed_data()
@@ -55,45 +55,80 @@ class DataSet:
         raw_datum = self.raw_data[index]
         return raw_datum[key]
 
-    def read_from_file(self):
-        address_of_file = os.path.dirname(__file__) + str('/../Data/English.csv')
+    def read_from_file(self, address_of_file, has_tag=False):
+        # address_of_file = os.path.dirname(__file__) + str('/../Data/English.csv')
         with open(address_of_file) as english_raw_dataset:
             csv_reader = csv.reader(english_raw_dataset)
             self.raw_data = []
             line_count = 0
-            for row in csv_reader:
-                if line_count == 0:
-                    line_count += 1
-                else:
-                    self.raw_data.append(
-                        {
-                            "id": line_count,
-                            "title": row[0],
-                            "content": row[1]
-                        })
-                    line_count += 1
-            print(f'Processed {line_count} lines of raw data.')
+            if not has_tag:
+                for row in csv_reader:
+                    if line_count == 0:
+                        line_count += 1
+                    else:
+                        self.raw_data.append(
+                            {
+                                "id": line_count,
+                                "title": row[0],
+                                "content": row[1]
+                            })
+                        line_count += 1
+                print(f'Processed {line_count} lines of raw data.')
+            else:
+                for row in csv_reader:
+                    if line_count == 0:
+                        line_count += 1
+                    else:
+                        self.raw_data.append(
+                            {
+                                "id": line_count,
+                                "tag": row[0],
+                                "title": row[1],
+                                "content": row[2]
+                            })
+                        line_count += 1
+                print(f'Processed {line_count} lines of raw data.')
 
-    def get_data(self, stem=True):
+    def get_data(self, stem=True, has_tag=False):
         raw_data = self.raw_data
         data = []
-        if stem is False:
-            for datum in raw_data:
-                data.append(
-                    {
-                        "id": datum['id'],
-                        "title": analyser(datum['title'], stem=False),
-                        "content": analyser(datum['content'], stem=False)
-                    })
+        if not has_tag:
+            if stem is False:
+                for datum in raw_data:
+                    data.append(
+                        {
+                            "id": datum['id'],
+                            "title": analyser(datum['title'], stem=False),
+                            "content": analyser(datum['content'], stem=False)
+                        })
+            else:
+                for datum in raw_data:
+                    data.append(
+                        {
+                            "id": datum['id'],
+                            "title": analyser(datum['title']),
+                            "content": analyser(datum['content'])
+                        })
         else:
-            for datum in raw_data:
-                data.append(
-                    {
-                        "id": datum['id'],
-                        "title": analyser(datum['title']),
-                        "content": analyser(datum['content'])
-                    })
+            if stem is False:
+                for datum in raw_data:
+                    data.append(
+                        {
+                            "id": datum['id'],
+                            "title": analyser(datum['title'], stem=False),
+                            "content": analyser(datum['content'], stem=False),
+                            "tag": analyser(datum['tag'], stem=False)
+                        })
+            else:
+                for datum in raw_data:
+                    data.append(
+                        {
+                            "id": datum['id'],
+                            "title": analyser(datum['title']),
+                            "content": analyser(datum['content']),
+                            "tag": analyser(datum['tag'])
+                        })
         return data
 
 
-dataSet = DataSet()
+# dataSet = DataSet()
