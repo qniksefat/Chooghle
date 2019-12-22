@@ -45,8 +45,8 @@ class DataSet:
         # list of dictionaries:
         self.read_from_file(address_of_file, has_tag)
         # gives self.raw_data
-        self.data = self.get_data(has_tag)
-        self.not_stemmed_data = self.get_data(stem=False)
+        self.data = self.get_data(stem=True, has_tag=has_tag)
+        self.not_stemmed_data = self.get_data(stem=False, has_tag=has_tag)
 
     # not_stemmed_data = get_not_stemmed_data()
 
