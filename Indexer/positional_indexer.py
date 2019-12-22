@@ -8,6 +8,15 @@ def create_documents_dict(documents):
     return result
 
 
+def create_positional_indexer_with_df(index : dict, document_size):
+    new_index ={}
+    new_index['documents_size'] = document_size
+    for term in index.keys():
+        df = len(index[term].keys())
+        new_index[term] = (df,index[term])
+    return new_index
+
+
 def positional_indexer(documents: dict, field):
     index = {}
     for this_doc_id in documents.keys():

@@ -137,8 +137,12 @@ def phase_4_query_corrector():
     res = query_corrector.final_candidate(term, bigram_index)
     print(res)
 
+def clustering_phase_creating_train_dataset_dictionary():
+    raw_dataset = english_tokenizer.DataSet('Data\\phase2_train.csv' , has_tag=True )
+    clustering.creating_dictionary(raw_dataset.data, "train_dictionary")
+
 def clustering_phase_creating_test_dataset_pickle_file():
-    raw_dataset = english_tokenizer.DataSet('Data/phase2_test.csv', has_tag=True)
+    raw_dataset = english_tokenizer.DataSet('Data\\phase2_test.csv', has_tag=True)
     output = clustering.creating_data_set(raw_dataset.data)
     file = open("Data\\" + "phase2_test" + ".pkl", "wb")
     pickle.dump(output, file)
@@ -187,8 +191,37 @@ def clustering_phase_creating_train_dataset_csv_file() :
     file.write(output_text)
     file.close()
 
+def clustering_phase_test_dataset_with_train_dictionary_pkl_file():
+    raw_dataset = english_tokenizer.DataSet('Data\\phase2_test.csv', has_tag=True)
+    output = clustering.creating_dataset_with_dictionary(raw_dataset.data, "train_dictionary")
+    file = open("Data\\" + "phase2_test_with_train_dictionary" + ".pkl", "wb")
+    pickle.dump(output, file)
+    file.close()
 
-clustering_phase_creating_train_dataset_csv_file()
+def clustering_phase_creating_test_dataset_with_train_dictionary_csv_file() :
+    file = open("Data\\" + "phase2_test_with_train_dictionary" + ".pkl", "rb")
+    output = pickle.load(file)
+    file.close()
+    output_arr = []
+    for i in range(len(output)):
+        this_ouput = ""
+        print(str(i) + " " + str(len(output[i])))
+        for j in range(len(output[i])):
+            this_ouput += str(output[i][j])
+            this_ouput += ","
+        this_ouput = this_ouput[0:-1]
+        this_ouput += "\n"
+        output_arr.append(this_ouput)
+    output_text = "".join(output_arr)
+    file = open('Data/test_data_with_train_dictionary.csv', "w")
+    file.write(output_text)
+    file.close()
+
+# clustering_phase_test_dataset_with_train_dictionary_pkl_file()
+clustering_phase_creating_test_dataset_with_train_dictionary_csv_file()
+# clustering_phase_creating_train_dataset_dictionary()
+
+# clustering_phase_creating_train_dataset_csv_file()
 
 # create_positional_index_for_english()
 # create_positional_index_not_stemmed_for_english()

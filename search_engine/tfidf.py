@@ -2,6 +2,22 @@ import math
 from Indexer.positional_indexer import *
 
 
+def compute_tfidf_for_document_with_temp_dict(term, document: dict, dictionary: dict, terms_temp_dict : dict):
+    document_id = document["id"]
+    documents_size = terms_temp_dict['documents_size']
+    if term not in dictionary.keys():
+        return 0
+    posting_list: dict = dictionary[term]
+    if document_id not in posting_list.keys():
+        return 0
+    tf = len(posting_list[document_id])
+    if term not in terms_temp_dict.keys():
+        return 0
+    df = terms_temp_dict[term][0]
+    idf = math.log(documents_size / df, 2)
+    tf_idf = tf * idf
+    return tf_idf
+
 def compute_tfidf_for_document(term, document: dict, dictionary: dict, documents_size):
     document_id = document["id"]
     if term not in dictionary.keys():
