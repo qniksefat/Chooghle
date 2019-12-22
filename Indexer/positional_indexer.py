@@ -4,16 +4,16 @@ import pickle
 def create_documents_dict(documents):
     result = {}
     for document in documents:
-        result[document["id"]] = document
+        result[document['id']] = document
     return result
 
 
-def create_positional_indexer_with_df(index : dict, document_size):
-    new_index ={}
+def create_positional_indexer_with_df(index: dict, document_size):
+    new_index = {}
     new_index['documents_size'] = document_size
     for term in index.keys():
         df = len(index[term].keys())
-        new_index[term] = (df,index[term])
+        new_index[term] = (df, index[term])
     return new_index
 
 
@@ -41,14 +41,14 @@ def positional_indexer(documents: dict, field):
 
 
 def remove_document_from_index(id, index: dict):
-    if (id not in index.keys()):
+    if id not in index.keys():
         return index
     index.pop(index[id])
     return index
 
 
 def add_document_to_index(document: dict, index: dict):
-    if (document["id"] in index):
+    if document["id"] in index:
         return index
     index[document["id"]] = document
     return index
@@ -81,7 +81,7 @@ def show_search_result(index: dict, term):
 def search_for_term(term, index):
     posting_list: dict = get_posting_list(index, term)
     result = []
-    if (posting_list == None):
+    if posting_list is None:
         return result
     for docid in posting_list.keys():
         result.append(docid)
@@ -89,13 +89,13 @@ def search_for_term(term, index):
 
 
 def write_index_on_file(index, name):
-    file = open("Data\\" + name + ".pkl", "wb")
+    file = open(os.path.join('Data', name) + ".pkl", "wb")
     pickle.dump(index, file)
     file.close()
 
 
 def load_index(name):
-    file = open("Data\\" + name + ".pkl", "rb")
+    file = open(os.path.join('Data', name) + ".pkl", "rb")
     index = pickle.load(file)
     file.close()
     return index
