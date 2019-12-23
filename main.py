@@ -8,11 +8,11 @@ from Clustering import clustering
 
 
 def create_positional_index_for_english():
-    dataset = english_tokenizer.DataSet('Data/English.csv', has_tag=False)
+    dataset = english_tokenizer.DataSet(os.path.join('Data', 'English.csv'), has_tag=False)
     english_dataset = dataset.data
     documents = positional_indexer.create_documents_dict(english_dataset)
-    dictionary = positional_indexer.positional_indexer(documents, "content")
-    positional_indexer.write_index_on_file(dictionary, "english_dict")
+    dictionary = positional_indexer.positional_indexer(documents, 'content')
+    positional_indexer.write_index_on_file(dictionary, 'english_dict')
 
 
 def create_positional_index_not_stemmed_for_english():

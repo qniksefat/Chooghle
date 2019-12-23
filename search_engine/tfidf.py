@@ -2,7 +2,7 @@ import math
 from Indexer.positional_indexer import *
 
 
-def compute_tfidf_for_document_with_temp_dict(term, document: dict, dictionary: dict, terms_temp_dict : dict):
+def compute_tfidf_for_document_with_temp_dict(term, document: dict, dictionary: dict, terms_temp_dict: dict):
     document_id = document["id"]
     documents_size = terms_temp_dict['documents_size']
     if term not in dictionary.keys():
@@ -17,6 +17,7 @@ def compute_tfidf_for_document_with_temp_dict(term, document: dict, dictionary: 
     idf = math.log(documents_size / df, 2)
     tf_idf = tf * idf
     return tf_idf
+
 
 def compute_tfidf_for_document(term, document: dict, dictionary: dict, documents_size):
     document_id = document["id"]
@@ -38,7 +39,7 @@ def compute_tfidf_for_query(term, query: list, dictionary: dict, documents_size)
     posting_list: dict = dictionary[term]
     tf = 0
     for item in query:
-        if (term == item):
+        if term == item:
             tf += 1
     df = len(posting_list.keys())
     idf = math.log(documents_size / df, 2)
@@ -52,8 +53,8 @@ def compute_score(query: list, document: dict, dictionary: dict, documents_size)
     for term in query:
         query_vect.append(compute_tfidf_for_query(term, query, dictionary, documents_size))
         document_vect.append(compute_tfidf_for_document(term, document, dictionary, documents_size))
-    query_vect_len = compute_vectore_length(query_vect)
-    document_vect_len = compute_vectore_length(document_vect)
+    query_vect_len = compute_vector_length(query_vect)
+    document_vect_len = compute_vector_length(document_vect)
     score = 0
     for i in range(len(query_vect)):
         score += query_vect[i] * document_vect[i]
@@ -61,7 +62,7 @@ def compute_score(query: list, document: dict, dictionary: dict, documents_size)
     return score
 
 
-def compute_vectore_length(vector: len):
+def compute_vector_length(vector: len):
     res = 0
     for i in range(len(vector)):
         res += vector[i] * vector[i]
@@ -74,7 +75,7 @@ def search_for_query(query, documents: dict, dictionary: dict):
     for term in query:
         this_docs = search_for_term(term, dictionary)
         for docId in this_docs:
-            if (docId not in candidate_documents):
+            if docId not in candidate_documents:
                 candidate_documents.append(docId)
     scored_documents = []
     for document_id in candidate_documents:
