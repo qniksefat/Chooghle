@@ -2,9 +2,6 @@ import pickle
 import os
 from Indexer import positional_indexer
 from search_engine import tfidf
-import pandas as pd
-import numpy as np
-
 
 def creating_dictionary(raw_dataset: dict, filename):
     documents = positional_indexer.create_documents_dict(raw_dataset)
