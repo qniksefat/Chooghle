@@ -11,6 +11,10 @@ train_data = pd.read_csv(os.path.join('data', 'train_data.csv'))
 x_train = train_data.drop('tag.1', axis=1)
 y_train = train_data[['tag.1']]
 
+# sv_classifier = SVC(kernel='sigmoid')
+# sv_classifier = SVC(kernel='rbf')
+# sv_classifier = SVC(kernel='poly', degree=8)
+### You can input C in the SVC
 sv_classifier = SVC(kernel='linear')
 sv_classifier.fit(x_train, y_train)
 y_predicted = sv_classifier.predict(x_test)
